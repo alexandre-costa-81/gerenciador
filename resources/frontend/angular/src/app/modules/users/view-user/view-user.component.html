@@ -1,0 +1,33 @@
+<h1 class="mat-h1">Alterar usuário</h1>
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Ficha de cadastro</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <form [formGroup]="userForm" class="example-form">
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email" >
+      </mat-form-field>
+
+
+    </form>
+
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <button mat-raised-button color="primary" [routerLink]="['/users']">Voltar</button>
+
+  </mat-card-actions>
+
+</mat-card>

@@ -1,0 +1,30 @@
+<h1 class="mat-h1">Usuários</h1>
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Lista de usuários</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <app-table [tableData]="users"
+               [tableColumns]="usersTableColumns"
+               [actions]="actions"
+               [isFilterable]="true"
+               [isPageable]="true"
+               [defaultPageSize]="5"
+               (sort)="sortData($event)"
+               (rowEditAction)="editUser($event)"
+               (rowViewAction)="viewUser($event)"
+               (rowDeleteAction)="deleteUser($event)">
+    </app-table>
+
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <button mat-raised-button color="primary" [routerLink]="['/users/create']">Novo</button>
+
+  </mat-card-actions>
+
+</mat-card>

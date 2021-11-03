@@ -1,0 +1,66 @@
+<h1 class="mat-h1">Alterar usuário</h1>
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Ficha de cadastro</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="userForm" (ngSubmit)="updateUser()" class="example-form">
+
+    <mat-card-content>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" autofocus>
+        <mat-error *ngIf="userForm.get('name')?.errors?.required">
+          Nome é <strong>obrigatório</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('name')?.errors?.minlength">
+          O tamanho mínimo é de 2 digitos
+        </mat-error>
+        <mat-error *ngIf="userForm.get('name')?.errors?.maxlength">
+          O tamanho máximo é de 30 digitos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="userForm.get('email')?.errors?.required">
+          E-mail é <strong>obrigatório</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('email')?.errors?.email">
+          Por favor insira um endereço de e-mail válido
+        </mat-error>
+        <mat-error *ngIf="userForm.get('email')?.errors?.emailTaken">
+          E-mail already taken
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password">
+        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-pressed]="passwordHide"><mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+        <mat-error *ngIf="userForm.get('password')?.errors?.required">
+          Nome é <strong>obrigatório</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('password')?.errors?.minlength">
+          O tamanho mínimo é de 8 digitos
+        </mat-error>
+        <mat-error *ngIf="userForm.get('password')?.errors?.maxlength">
+          O tamanho máximo é de 30 digitos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="is_admin">O usuário é administrador?</mat-checkbox>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Salvar</button>
+      <button mat-raised-button color="primary" [routerLink]="['/users']">Cancelar</button>
+    </mat-card-actions>
+
+  </form>
+
+</mat-card>
