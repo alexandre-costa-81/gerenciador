@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AngularController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +13,6 @@ use App\Http\Controllers\AngularController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::any('/{any}', [AngularController::class, 'index'])->where('any', '^(?!api).*$');
+Route::any('/{any}', function () {
+    return view('angular');
+})->where('any', '^(?!api).*$');
