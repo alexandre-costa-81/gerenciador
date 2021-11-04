@@ -20,7 +20,6 @@ const removeEmptyStringsFrom = (obj) => Object
 export class UserService {
 
   private userSubject = new BehaviorSubject<User>(null);
-  private username: string;
 
   constructor(
     private httpClient: HttpClient,
@@ -54,6 +53,10 @@ export class UserService {
     return this.httpClient.get(`${API}?email=${email}`);
   }
 
+  me() {
+    return this.httpClient.get<User>(`http://localhost/api/v1/me`);
+  }
+
   login(token: string) {
     this.tokenService.setToken(token);
     this.decodeAndNotify();
@@ -61,9 +64,9 @@ export class UserService {
 
   private decodeAndNotify() {
     const token = this.tokenService.getToken();
-    const user = jwt_decode(token) as User;
-    this.username = user.name;
-    this.userSubject.next(user);
+    this.me().subscribe(user => {
+      this.userSubject.next(user);
+    });
   }
 
   getUserSubject() {
@@ -72,7 +75,6 @@ export class UserService {
 
   logout() {
     this.tokenService.removeToken();
-    this.username = '';
     this.userSubject.next(null);
   }
 
