@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    use ApiResponser;
-
     public function register(Request $request)
     {
         $attr = $request->validate([
@@ -26,9 +24,10 @@ class AuthController extends Controller
             'password' => bcrypt($attr['password'])
         ]);
 
-        return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
-        ]);
+        return response()->json([
+            'token' => $user->createToken('API Token')->plainTextToken,
+            'user' => $user
+        ], 201);
     }
 
     public function login(Request $request)
@@ -45,8 +44,9 @@ class AuthController extends Controller
         /** @var \App\Models\MyUserModel $user **/
         $user = Auth::user();
 
-        return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
+        return response()->json([
+            'token' => $user->createToken('API Token')->plainTextToken,
+            'user' => $user
         ]);
     }
 
@@ -56,8 +56,8 @@ class AuthController extends Controller
         $user = Auth::user();
         $user->tokens()->delete();
 
-        return [
+        return response()->json([
             'message' => 'Tokens Revogados'
-        ];
+        ]);
     }
 }
