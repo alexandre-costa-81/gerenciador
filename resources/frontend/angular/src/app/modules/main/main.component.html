@@ -20,10 +20,10 @@
       </button>
       <span>Gerenciador</span>
       <span class="toolbar-spacer"></span>
-      <span *ngIf="(user$ | async) as user; else login">{{ user.name }}</span>
-      <button *ngIf="(user$ | async) as user;" (click)="logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
+      <button *ngIf="(user$ | async) as user; else login" mat-button [matMenuTriggerFor]="menu">{{ user.name }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">Sair</button>
+      </mat-menu>
       <ng-template #login>
         <span><a [routerLink]="['/login']">Por favor, efetue o login</a></span>
       </ng-template>
