@@ -12,7 +12,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: '', component: DashboardComponent},
-      {path: 'users', loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)}
+      {path: 'users', loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)},
+      {path: 'files', loadChildren: () => import('./modules/files/files.module').then(m => m.FilesModule)}
     ]
   },
   {path: 'login', component: LoginComponent},

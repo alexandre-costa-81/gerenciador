@@ -1,0 +1,48 @@
+<h1 class="mat-h1">Novo usuário</h1>
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Ficha de cadastro</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="fileForm" (ngSubmit)="createFile()" class="example-form">
+
+    <mat-card-content>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" autofocus>
+        <mat-error *ngIf="fileForm.get('name').errors?.required">
+          Nome é <strong>obrigatório</strong>
+        </mat-error>
+        <mat-error *ngIf="fileForm.get('name').errors?.minlength">
+          O tamanho mínimo é de 3 digitos
+        </mat-error>
+        <mat-error *ngIf="fileForm.get('name').errors?.maxlength">
+          O tamanho máximo é de 255 digitos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Arquivo</mat-label>
+        <input type="file" formControlName="file" multiple hidden #f_input (change)="handleFileInputChange(f_input.files)"/>
+        <input type="text" readonly matInput [formControl]="display" />
+        <button mat-icon-button matSuffix (click)="f_input.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <mat-error *ngIf="fileForm.get('file').errors?.required">
+          Arquivo é <strong>obrigatório</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+
+      <button mat-raised-button color="primary" type="submit">Salvar</button>
+      <button mat-raised-button color="primary" [routerLink]="['/files']">Cancelar</button>
+
+    </mat-card-actions>
+  </form>
+
+</mat-card>
