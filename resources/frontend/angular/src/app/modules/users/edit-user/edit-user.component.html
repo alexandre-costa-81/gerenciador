@@ -39,8 +39,10 @@
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Senha</mat-label>
-        <input matInput formControlName="password" type="password">
-        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-pressed]="passwordHide"><mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+        <input matInput formControlName="password" [type]="passwordHide? 'password' : 'text'">
+        <button mat-icon-button matSuffix type="button" (click)="passwordHide = !passwordHide" [attr.aria-pressed]="passwordHide">
+          <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
         <mat-error *ngIf="userForm.get('password')?.errors?.required">
           Nome é <strong>obrigatório</strong>
         </mat-error>
