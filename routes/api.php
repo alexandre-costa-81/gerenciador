@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class, ['except' => ['edit']]);
+    Route::resource('files', FileController::class, ['except' => ['edit', 'update']]);
 });
