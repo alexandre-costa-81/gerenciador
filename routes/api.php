@@ -30,4 +30,5 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
 
     Route::resource('users', UserController::class, ['except' => ['edit']]);
     Route::resource('files', FileController::class, ['except' => ['edit', 'update']]);
+    Route::get('files/{id}/download', [FileController::class, 'download'])->name('files.download');
 });

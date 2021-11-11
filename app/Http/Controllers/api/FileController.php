@@ -49,7 +49,7 @@ class FileController extends Controller
     {
         $file = File::find($id);
         if (is_object($file)) {
-            return Storage::download($file->path);
+            return response()->json($file, 201);
         } else {
             return response()->json(['error' => 'Arquivo não encontrado.'], 404);
         }
@@ -76,6 +76,14 @@ class FileController extends Controller
         } else {
             return response()->json(['error' => 'Arquivo não encontrado.'], 404);
         }
+    }
 
+    public function download($id) {
+        $file = File::find($id);
+        if (is_object($file)) {
+            return Storage::download($file->path);
+        } else {
+            return response()->json(['error' => 'Arquivo não encontrado.'], 404);
+        }
     }
 }
