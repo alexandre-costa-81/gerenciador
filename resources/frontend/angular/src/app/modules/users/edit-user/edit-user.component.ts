@@ -54,7 +54,7 @@ export class EditUserComponent implements OnInit {
         this.userID = data.id;
         this.userForm.get('name')?.setValue(data.name);
         this.userForm.get('email')?.setValue(data.email);
-        this.userForm.get('is_admin')?.setValue(data.is_admin);
+        // this.userForm.get('is_admin')?.setValue(data.is_admin);
       })
       .catch(
       error => {
