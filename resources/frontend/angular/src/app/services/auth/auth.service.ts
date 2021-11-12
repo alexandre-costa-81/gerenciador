@@ -22,4 +22,17 @@ export class AuthService {
         this.userService.login(token);
       }));
   }
+
+  logout() {
+    return this.httpClient
+      .get(API_URL + '/logout')
+      .subscribe(
+        res => {
+          this.userService.logout();
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
 }

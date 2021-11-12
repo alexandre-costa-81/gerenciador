@@ -26,7 +26,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
 
     Route::resource('users', UserController::class, ['except' => ['edit']]);
     Route::resource('files', FileController::class, ['except' => ['edit', 'update']]);

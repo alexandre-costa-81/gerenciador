@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/User.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -33,13 +34,14 @@ export class MainComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router) {
 
     this.user$ = userService.getUserSubject();
   }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
