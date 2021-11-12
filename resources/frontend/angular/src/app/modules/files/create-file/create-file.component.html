@@ -16,7 +16,7 @@
           Nome é <strong>obrigatório</strong>
         </mat-error>
         <mat-error *ngIf="fileForm.get('name').errors?.minlength">
-          O tamanho mínimo é de 3 digitos
+          O tamanho mínimo é de 6 digitos
         </mat-error>
         <mat-error *ngIf="fileForm.get('name').errors?.maxlength">
           O tamanho máximo é de 255 digitos
@@ -24,10 +24,21 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="description" autofocus>
+        <mat-error *ngIf="fileForm.get('description').errors?.minlength">
+          O tamanho mínimo é de 6 digitos
+        </mat-error>
+        <mat-error *ngIf="fileForm.get('description').errors?.maxlength">
+          O tamanho máximo é de 255 digitos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Arquivo</mat-label>
-        <input type="file" formControlName="file" multiple hidden #f_input (change)="handleFileInputChange(f_input.files)"/>
-        <input type="text" readonly matInput [formControl]="display" />
-        <button mat-icon-button matSuffix (click)="f_input.click()">
+        <input type="file" multiple hidden #f_input (change)="onFileChange(f_input.files)"/>
+        <input type="text" readonly matInput formControlName="file" />
+        <button mat-icon-button matSuffix type="button" (click)="f_input.click()">
           <mat-icon>attach_file</mat-icon>
         </button>
         <mat-error *ngIf="fileForm.get('file').errors?.required">

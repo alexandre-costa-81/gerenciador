@@ -42,10 +42,6 @@ export class ListFilesComponent implements OnInit {
     }
   }
 
-  editFile(file: FileModel) {
-    this.router.navigate([`/files/${file.id}/edit`]);
-  }
-
   viewFile(file: FileModel) {
     this.router.navigate([`/files/${file.id}`]);
   }
@@ -62,7 +58,7 @@ export class ListFilesComponent implements OnInit {
 
   initializeActions(): void {
     this.actions = {
-      edit: true,
+      edit: false,
       view: true,
       delete: true
     }
@@ -83,8 +79,8 @@ export class ListFilesComponent implements OnInit {
         isSortable: true
       },
       {
-        name: 'Caminho',
-        dataKey: 'path',
+        name: 'Descrição',
+        dataKey: 'description',
         position: 'left',
         isSortable: true
       },

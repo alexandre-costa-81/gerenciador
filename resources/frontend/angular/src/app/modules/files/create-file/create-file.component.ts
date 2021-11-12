@@ -22,10 +22,7 @@ export class CreateFileComponent implements OnInit {
   messageTimer: MatSnackBarConfig = new MatSnackBarConfig();
   passwordHide = true;
   fileForm: FormGroup;
-  hideRequiredControl = new FormControl(false);
-
-  @ViewChild('UploadFileInput') uploadFileInput: ElementRef;
-  myfilename = 'Select File';
+  file: File;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,13 +34,22 @@ export class CreateFileComponent implements OnInit {
   ngOnInit(): void {
     this.messageTimer.duration = 5000;
     this.fileForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      file: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+      file: ['', [Validators.required]],
+      description: ['', [Validators.minLength(6), Validators.maxLength(255)]]
     });
   }
 
   createFile() {
-    this.fileService.create(this.fileForm.value)
+    let formData = new FormData();
+    let name = this.fileForm.get('name').value;
+    let description = this.fileForm.get('description').value;
+
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('document', this.file);
+
+    this.fileService.create(formData)
       .subscribe(res => {
         this._snackBar.open('Arquivo salvo com sucesso.', '', this.messageTimer);
         this.router.navigate(['/files']);
@@ -51,32 +57,14 @@ export class CreateFileComponent implements OnInit {
       error => {
         console.log(error)
         this._snackBar.open('Não foi possível salvar o arquivo.', '', this.messageTimer);
-      });
+      }
+    );
   }
 
-  display: FormControl = new FormControl("", Validators.required);
-  file_store: FileList;
-  file_list: Array<string> = [];
-
-  handleFileInputChange(l: FileList): void {
-    this.file_store = l;
-    if (l.length) {
-      const f = l[0];
-      const count = l.length > 1 ? `(+${l.length - 1} files)` : "";
-      this.display.patchValue(`${f.name}${count}`);
-    } else {
-      this.display.patchValue("");
+  onFileChange(fileList: FileList): void {
+    if (fileList.length) {
+      this.file = fileList[0];
+      this.fileForm.patchValue({ file: `${this.file.name}` });
     }
-  }
-
-  handleSubmit(): void {
-    var fd = new FormData();
-    this.file_list = [];
-    for (let i = 0; i < this.file_store.length; i++) {
-      fd.append("files", this.file_store[i], this.file_store[i].name);
-      this.file_list.push(this.file_store[i].name);
-    }
-
-    // do submit ajax
   }
 }

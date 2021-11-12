@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { TokenService } from '../token/token.service';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FileModel } from 'src/app/models/File.model';
 
 const API = 'http://localhost/api/v1/files';
@@ -26,11 +25,15 @@ export class FileService {
     return this.httpClient.delete<FileModel>(`${API}/${id}`);
   }
 
-  create(data: FileModel) {
+  create(data: FormData) {
     return this.httpClient.post<FileModel>(API, data);
   }
 
   update(id: string, data: FileModel) {
     return this.httpClient.put<FileModel>(`${API}/${id}`, data);
+  }
+
+  download(id: string): Observable<Blob> {
+    return this.httpClient.get(`${API}/${id}/download`, { responseType: 'blob' });
   }
 }
