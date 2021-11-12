@@ -52,17 +52,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Arquivo</mat-label>
-        <input type="file" multiple hidden #f_input (change)="handleFileInputChange(f_input.files)"/>
-        <input type="text" readonly matInput [formControl]="display" />
-        <button mat-icon-button matSuffix (click)="f_input.click()">
-          <mat-icon>attach_file</mat-icon>
-        </button>
-        <mat-error>Arquivo é <strong>obrigatório</strong></mat-error>
-      </mat-form-field>
-
-      <mat-checkbox formControlName="is_admin">O usuário é administrador?</mat-checkbox>
+      <!-- <mat-checkbox formControlName="is_admin">O usuário é administrador?</mat-checkbox> -->
 
     </mat-card-content>
 

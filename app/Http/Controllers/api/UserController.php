@@ -17,8 +17,7 @@ class UserController extends BaseController
             'id'        => 'int',
             'name'      => 'string|min:3|max:255',
             'email'     => 'string|email',
-            'password'  => 'string|min:7|max:255',
-            'is_admin'     => 'boolean'
+            'password'  => 'string|min:7|max:255'
         ]);
     }
 
@@ -26,8 +25,7 @@ class UserController extends BaseController
         $this->validate($request, [
             'name'      => 'required|min:3',
             'email'     => 'required|email',
-            'password'  => 'required|min:7|max:255',
-            'is_admin'     => 'required'
+            'password'  => 'required|min:7|max:255'
         ]);
     }
 
