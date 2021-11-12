@@ -24,7 +24,8 @@ export class MainComponent {
     map(result => {
       return [
           { name: 'Painel', route: '/' },
-          { name: 'Usuários', route: '/users' }
+          { name: 'Usuários', route: '/users' },
+          { name: 'Arquivos', route: '/files' }
         ];
     })
   );
